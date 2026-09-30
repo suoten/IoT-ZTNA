@@ -1,0 +1,37 @@
+# Rust
+/target/
+debug/
+*.pdb
+
+# Node.js
+console/node_modules/
+console/dist/
+
+# 数据文件（包含运行时生成的数据，不应提交）
+/data/
+!data/.gitkeep
+
+# 规划文档（内部文档，不公开）
+IoT-ZTNA 网关 规划文档.md
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# 环境配置
+.env
+.env.local
+.env.*.local
+
+# 临时文件
+*.log
+*.tmp
+*.bak

@@ -1,0 +1,36 @@
+[Unit]
+Description=IoT-ZTNA Gateway
+After=network.target
+
+[Service]
+Type=simple
+User=ztna
+Group=ztna
+WorkingDirectory=/opt/iot-ztna
+ExecStart=/opt/iot-ztna/iot-ztna-gateway -c /opt/iot-ztna/config/ztna.toml
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65536
+
+# 环境变量（请根据实际修改）
+Environment=ZTNA_STATIC_DIR=/opt/iot-ztna/console/dist
+Environment=RUST_LOG=info
+Environment=ZTNA_ADMIN_USER=admin
+Environment=ZTNA_ADMIN_PASS=admin123
+Environment=ZTNA_JWT_SECRET=change-this-in-production
+Environment=ZTNA_AUTH_ENABLED=true
+
+# 安全加固
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/opt/iot-ztna/data
+
+# 日志
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=iot-ztna-gateway
+
+[Install]
+WantedBy=multi-user.target

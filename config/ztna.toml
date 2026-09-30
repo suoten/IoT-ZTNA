@@ -1,0 +1,19 @@
+# IoT-ZTNA 网关配置文件
+
+trust_domain = "iot-ztna.local"
+gateway_id = "edge-gw-01"
+listen_addr = "0.0.0.0"
+listen_port = 9443
+db_path = "data/ztna.db"
+svid_ttl_days = 7
+renewal_trigger_hours = 24
+revocation_check_interval_secs = 300
+log_level = "info"
+offline_mode = false
+nft_table = "iot_ztna"
+
+[tls]
+cert_path = "data/certs/gateway.crt"
+key_path = "data/certs/gateway.key"
+ca_cert_path = "data/certs/ca.crt"
+mtls_enabled = true

@@ -1,0 +1,104 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/gateway",
+    "crates/identity",
+    "crates/policy",
+    "crates/storage",
+    "crates/api",
+    "crates/common",
+    "crates/dataplane",
+    "crates/ai",
+    "crates/opa",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+authors = ["IoT-ZTNA Team"]
+repository = "https://github.com/your-org/iot-ztna"
+
+[workspace.dependencies]
+# Async runtime
+tokio = { version = "1.40", features = ["full"] }
+
+# Web framework
+axum = { version = "0.7", features = ["ws", "macros"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = ["cors", "trace", "fs", "limit"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# CLI
+clap = { version = "4.5", features = ["derive"] }
+
+# Crypto / TLS
+rustls = { version = "0.23", default-features = false, features = ["ring", "logging", "std", "tls12"] }
+rustls-pemfile = "2.1"
+ring = "0.17"
+rcgen = { version = "0.13", default-features = false, features = ["pem", "x509-parser", "ring"] }
+x509-parser = "0.16"
+
+# Database
+rusqlite = { version = "0.32", features = ["bundled"] }
+
+
+# Time
+chrono = { version = "0.4", features = ["serde"] }
+
+# UUID
+uuid = { version = "1.10", features = ["v4", "v5", "serde"] }
+
+# Metrics (不使用 metrics-exporter-prometheus 以避免引入 aws-lc-rs)
+# 直接在 API 中输出 Prometheus 格式文本
+
+# WebSocket
+tokio-tungstenite = "0.24"
+
+# Random
+rand = "0.8"
+
+# Hex / Base64
+hex = "0.4"
+base64 = "0.22"
+
+# Async traits
+async-trait = "0.1"
+
+# Regex
+regex = "1.10"
+
+# Internal crates
+iot-ztna-common = { path = "crates/common" }
+iot-ztna-storage = { path = "crates/storage" }
+iot-ztna-identity = { path = "crates/identity" }
+iot-ztna-policy = { path = "crates/policy" }
+iot-ztna-api = { path = "crates/api" }
+iot-ztna-dataplane = { path = "crates/dataplane" }
+iot-ztna-ai = { path = "crates/ai" }
+iot-ztna-opa = { path = "crates/opa" }
+
+# futures-util for WebSocket streaming
+futures-util = "0.3"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
+
+[profile.dev]
+opt-level = 0
+debug = true

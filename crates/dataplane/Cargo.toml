@@ -1,0 +1,16 @@
+[package]
+name = "iot-ztna-dataplane"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+iot-ztna-common.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tracing.workspace = true
+tokio.workspace = true
+async-trait.workspace = true
+
+[target.'cfg(target_os = "linux")'.dependencies]
+libc = "0.2"
